@@ -53,9 +53,15 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="../pages/bidan/izin_bidan.php">
+                <a class="nav-link" href="<?= $base_url; ?>pages/bidan/izin_bidan.php">
                     <i class="fas fa-user-nurse"></i>
                     <span>Izin Praktik Bidan</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="<?= $base_url; ?>pages/jatuh_tempo/jatuh_tempo.php">
+                    <i class="fas fa-envelope"></i>
+                    <span>Daftar Jatuh Tempo</span></a>
             </li>
 
             <li class="nav-item">
