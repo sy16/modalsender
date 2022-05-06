@@ -8,8 +8,8 @@ require_once('../../templates/header.php');
 
 $apikey = "980dc809b940d0c0a1358c1622be6726268adb9e";
 $tujuan = "6285249660267";
-$jadwal = "2022-04-17 08:30:00";
-$pesan = "Hiii ini pesan test berjangka waktu {$jadwal} web";
+$jadwal = "2022-05-17 08:30:00";
+$pesan = "Hiii ini pesan test berjangka waktu hari ini {$jadwal} web";
 
 
 $curl = curl_init();

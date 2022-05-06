@@ -30,8 +30,9 @@ $output .= "
             <th>Nama</th>
             <th>Nomor Whatsapp</th>
             <th>Masa Berlaku</th>
-            <th>Status Pesan</th>
-            <th>Action</th>
+            <th>Status</th>
+            <th>Pesan</th>
+            <th>Aksi</th>
         </tr>
     </thead>
     <tbody>
@@ -39,26 +40,26 @@ $output .= "
 
 $u = $_SESSION['username'];
 $q = mysqli_query($koneksi, "SELECT * FROM izin_bidan order by id_bidan DESC");
-// $no = 1;
+$no = 1;
 while ($row = mysqli_fetch_array($q)) {
 
     $output .= "
     <tr>
-    <td> " . $row['id_bidan']  . "</td>
+    <td> " . $no  . "</td>
     <td> " . $row['nama'] . "</td>
     <td>" .  $row['no_wa']  . "</td>
     <td>" .  $row['ms_berlaku'] . " </td>
-    <td>Terkirim </td>
+    <td>Berlaku </td>
+    <td>- </td>
     <td>                            
     
     <input type='hidden' name='nama' id='" . $row['nama'] . "'>
-    <button class='btn btn-danger float-right hapus_bidan' data-nama='" . $row['nama'] . "' alt='hapus' id='" . $row['id_bidan'] . "' ><i class='fas fa-trash-alt'></i></button>
                             <a class='btn btn-warning float-right mr-3 edit_bidan' alt='edit' id='" . $row['id_bidan'] . "' ><i class='fas fa-edit'></i></a>
                             
                             </td>
     </tr>
     ";
-    // $no++;
+    $no++;
 }
 $output .= "
 </tbody>
