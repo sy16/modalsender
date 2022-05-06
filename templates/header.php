@@ -65,7 +65,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="latihan/sendmesssage.php">
+                <a class="nav-link" href="<?= $base_url ?>pages/latihan/sendmesssage.php">
                     <i class="fas fa-envelope"></i>
                     Kirim pesan </a>
             </li>
