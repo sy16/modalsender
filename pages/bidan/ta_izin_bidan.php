@@ -1,14 +1,15 @@
 <?php
 include_once("../../helper/koneksi.php");
 include_once("../../helper/function.php");
-
+$id;
+$act = get("act");
 
 $login = cekSession();
 if ($login == 0) {
     redirect("login.php");
 }
 
-$id;
+
 
 if (post("nama")) {
     $nama = post("nama");
@@ -28,19 +29,19 @@ if (post("nama")) {
     }
 }
 
-if (get("act") == "hapus") {
-    $id = get("id");
+// if (get("act") == "insert") {
+//     $act = get("act");
+// }
 
-    $q = mysqli_query($koneksi, "DELETE FROM nomor WHERE id='$id'");
-    toastr_set("success", "Sukses hapus nomor");
-    redirect("nomor.php");
-}
+// if(get("act") == "edit"){
+// $act=
+// }
 
-if (get("act") == "delete_all") {
-    $q = mysqli_query($koneksi, "DELETE FROM nomor");
-    toastr_set("success", "Sukses hapus semua nomor");
-    redirect("nomor.php");
-}
+// if (get("act") == "delete_all") {
+//     $q = mysqli_query($koneksi, "DELETE FROM nomor");
+//     toastr_set("success", "Sukses hapus semua nomor");
+//     redirect("nomor.php");
+// }
 
 if (!empty(get("id"))) {
     $id = get("id");
@@ -61,7 +62,7 @@ require_once('../../templates/header.php');
     <br>
 
     <?php
-    echo $cek;
+    // echo $id;
 
     ?>
     <div class="card shadow mb-4">
@@ -125,7 +126,9 @@ require_once('../../templates/header.php');
 
 
 
-                        <input type="hidden" name="action" id="action" value="insert_bidan">
+                        <input type="hidden" name="id_bidan" id="action" value="<?= $id ?>">
+
+                        <input type="hidden" name="action" id="action" value="<?= $act ?>">
 
                         <button type="submit" name="save" id="save" class="btn btn-success float-right px-5 mr-3 btn_submit">Simpan</button>
 
@@ -243,7 +246,7 @@ require_once('../../templates/header.php');
 
                 if (jsonData.sukses == 0) {
                     alert(jsonData.simpan);
-                    $(':input').val('');
+                    // $(':input').val('');
                 } else {
                     alert(jsonData.simpan);
                     $(':input').val('');

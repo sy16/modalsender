@@ -23,7 +23,7 @@ require_once('../../templates/header.php');
 <div class="container-fluid">
 
     <!-- DataTales Example -->
-    <a href="ta_izin_bidan.php" class="btn btn-primary btn-block">Tambah Izin</a>
+    <a href="ta_izin_bidan.php?act=insert" class="btn btn-primary btn-block">Tambah Izin</a>
 
     <br>
     <div class="card shadow mb-4">
@@ -224,20 +224,7 @@ require_once('../../templates/header.php');
 
     $(document).on('click', '.edit_bidan', function() {
         var id = $(this).attr("id");
-        // alert(id);
-        // $.ajax({
-        //     url: ,
-        //     method: ,
-        //     data: ,
-        //     success: function(data) {
-
-        //     },
-        //     error: function(xhr, e, errorThrown) {
-        //         console.log("kesalahan : " + e);
-        //     }
-        // });
-
-        window.location = 'ta_izin_bidan.php?id=' + id;
+        window.location = 'ta_izin_bidan.php?act=edit&id=' + id;
 
     });
 
