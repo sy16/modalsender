@@ -37,6 +37,7 @@ if (isset($_POST['action']) && $_POST['action'] == "insert_bidan") {
     $alamat = $_POST['alamat'];
     $no_strb = $_POST['no_strb'];
     $uk_praktik = $_POST['uk_praktik'];
+    $al_praktik = $_POST['al_praktik'];
     $no_rekom = $_POST['no_rekom'];
     $tg_rekom = $_POST['tg_rekom'];
     $terbit = $_POST['terbit'];
@@ -53,6 +54,7 @@ if (isset($_POST['action']) && $_POST['action'] == "insert_bidan") {
         "alamat" => $alamat,
         "no_strb" => $no_strb,
         "uk_praktik" => $uk_praktik,
+        "al_praktik" => $al_praktik,
         "no_rekom" => $no_rekom,
         "tg_rekom" => $tg_rekom,
         "terbit" => $terbit,
@@ -68,8 +70,8 @@ if (isset($_POST['action']) && $_POST['action'] == "insert_bidan") {
     //     array('success' => 1)
     // );
 
-    $q = mysqli_query($koneksi, "INSERT INTO izin_bidan(`sipb`, `nama`,`temp_lahir`, `tg_lahir`, `alamat`, `no_strb`, `uk_praktik`, `no_rekom`, `tg_rekom`, `terbit`, `ms_berlaku`,`no_wa`)
-            VALUES('$sipb', '$nama','$temp_lahir', '$tg_lahir', '$alamat', '$no_strb', '$uk_praktik', '$no_rekom', '$tg_rekom', '$terbit', '$ms_berlaku', '$no_wa')");
+    $q = mysqli_query($koneksi, "INSERT INTO izin_bidan(`sipb`, `nama`,`temp_lahir`, `tg_lahir`, `alamat`, `no_strb`, `uk_praktik`, `al_praktik`, `no_rekom`, `tg_rekom`, `terbit`, `ms_berlaku`,`no_wa`)
+            VALUES('$sipb', '$nama','$temp_lahir', '$tg_lahir', '$alamat', '$no_strb', '$uk_praktik','$al_praktik', '$no_rekom', '$tg_rekom', '$terbit', '$ms_berlaku', '$no_wa')");
     if ($q) {
         toastr_set("success", "Sukses input data");
         $save = "Data Berhasil Di Tambahakan";

@@ -8,6 +8,8 @@ if ($login == 0) {
     redirect("login.php");
 }
 
+$id;
+
 if (post("nama")) {
     $nama = post("nama");
     $nomor = post("nomor");
@@ -39,6 +41,15 @@ if (get("act") == "delete_all") {
     toastr_set("success", "Sukses hapus semua nomor");
     redirect("nomor.php");
 }
+
+if (!empty(get("id"))) {
+    $id = get("id");
+
+    $q = mysqli_query($koneksi, "SELECT * FROM izin_bidan WHERE id_bidan = '$id'");
+    $row = mysqli_fetch_array($q);
+}
+
+
 require_once('../../templates/header.php');
 ?>
 
@@ -48,6 +59,11 @@ require_once('../../templates/header.php');
     <!-- DataTales Example -->
 
     <br>
+
+    <?php
+    echo $cek;
+
+    ?>
     <div class="card shadow mb-4">
 
         <div class="card-header py-3">
@@ -61,27 +77,27 @@ require_once('../../templates/header.php');
                     <div class="col">
 
                         <label> SIPB </label>
-                        <input type="text" name="sipb" required class="form-control" size="100">
+                        <input type="text" name="sipb" required class="form-control" value="<?= $row['sipb'] ?>" size="100">
                         <br>
                         <label> Nama </label>
-                        <input type="text" name="nama" required class="form-control" placeholder="">
+                        <input type="text" name="nama" required class="form-control" value="<?= $row['nama'] ?>" placeholder="">
                         <br>
                         <label>Tempat Lahir </label>
-                        <input type="text" name="temp_lahir" required class="form-control" placeholder="">
+                        <input type="text" name="temp_lahir" required class="form-control" value="<?= $row['temp_lahir'] ?>" placeholder="">
                         <br>
                         <label>Tgl Lahir</label>
-                        <input type="text" name="tg_lahir" required class="form-control datepicker" placeholder="">
+                        <input type="text" name="tg_lahir" required class="form-control datepicker" value="<?= $row['tg_lahir'] ?>" placeholder="">
                         <br>
 
 
                         <label for="">Alamat</label>
-                        <textarea type="text" name="alamat" required class="form-control" placeholder="alamat"></textarea>
+                        <textarea type="text" name="alamat" required class="form-control" placeholder=""><?= $row['alamat'] ?></textarea>
                         <br>
                         <label>No STRB</label>
-                        <input type="text" name="no_strb" required class="form-control" placeholder="">
+                        <input type="text" name="no_strb" required class="form-control" value="<?= $row['no_strb'] ?>" placeholder="">
                         <br>
                         <label>Untuk Praktik</label>
-                        <input type="text" name="uk_praktik" required class="form-control" placeholder="">
+                        <input type="text" name="uk_praktik" required class="form-control" value="<?= $row['uk_praktik'] ?>" placeholder="">
                         <br>
 
 
@@ -89,22 +105,22 @@ require_once('../../templates/header.php');
                     <div class="col">
 
                         <label>Alamat Praktik</label>
-                        <textarea type="text" name="al_praktik" required class="form-control" placeholder=""></textarea>
+                        <textarea type="text" name="al_praktik" required class="form-control" placeholder=""><?= $row['al_praktik'] ?></textarea>
                         <br>
                         <label>No Rekomendasi</label>
-                        <input type="text" name="no_rekom" required class="form-control" placeholder="">
+                        <input type="text" name="no_rekom" required class="form-control" value="<?= $row['no_rekom'] ?>" placeholder="">
                         <br>
                         <label>Tgl Rekomendasi</label>
-                        <input type="text" name="tg_rekom" required class="form-control datepicker" placeholder="">
+                        <input type="text" name="tg_rekom" required class="form-control datepicker" value="<?= $row['tg_rekom'] ?>" placeholder="">
                         <br>
                         <label>Terbit</label>
-                        <input type="text" name="terbit" required class="form-control datepicker" placeholder="">
+                        <input type="text" name="terbit" required class="form-control datepicker" value="<?= $row['terbit'] ?>" placeholder="">
                         <br>
                         <label>Masa Berlaku</label>
-                        <input type="text" name="ms_berlaku" required class="form-control datepicker" placeholder="">
+                        <input type="text" name="ms_berlaku" required class="form-control datepicker" value="<?= $row['ms_berlaku'] ?>" placeholder="">
                         <br>
                         <label>No Whatsapp</label>
-                        <input type="text" name="no_wa" required class="form-control" placeholder="">
+                        <input type="text" name="no_wa" required class="form-control" value="<?= $row['no_wa'] ?>" placeholder="">
                         <br>
 
 

@@ -224,7 +224,21 @@ require_once('../../templates/header.php');
 
     $(document).on('click', '.edit_bidan', function() {
         var id = $(this).attr("id");
-        alert(id);
+        // alert(id);
+        // $.ajax({
+        //     url: ,
+        //     method: ,
+        //     data: ,
+        //     success: function(data) {
+
+        //     },
+        //     error: function(xhr, e, errorThrown) {
+        //         console.log("kesalahan : " + e);
+        //     }
+        // });
+
+        window.location = 'ta_izin_bidan.php?id=' + id;
+
     });
 
     $(document).on('click', '.hapus_bidan', function() {
