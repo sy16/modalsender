@@ -228,6 +228,27 @@ require_once('../../templates/header.php');
 
     });
 
+    $(document).on('click', '.next_page', function() {
+        var id = $(this).attr("id");
+        var page = id + 1;
+        $.ajax({
+            url: "load_bidan.php?halaman=" + id,
+            method: "POST",
+            success: function(data) {
+                // console.log("Sukses fungsi ajax");
+                // $(".result").html(data);
+                $('.result').html(data);
+
+                <?php
+
+                toastr_show();
+
+
+                ?>
+            }
+        });
+    });
+
     $(document).on('click', '.hapus_bidan', function() {
         var id = $(this).attr("id");
         var nama = $(this).data("nama");

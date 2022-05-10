@@ -38,6 +38,9 @@ $notif;
 
 function kirim_pesan($tujuan, $nama, $exp)
 {
+    global $jsons;
+    global $pesan;
+
     $apikey = "980dc809b940d0c0a1358c1622be6726268adb9e";
     $tujuan = $tujuan;
     $pesan = "Hiii {$nama} ini pesan test denga api. tanggal berlaku izin anda {$exp}";
@@ -64,11 +67,9 @@ function kirim_pesan($tujuan, $nama, $exp)
     echo $response;
     $jsons = json_decode($response);
 
-    echo "<br>";
-    echo "<br>";
-    $notif = $jsons->message;
+    // $notif = $jsons->message;
 
-    echo  $notif;
+    // echo  $notif;
     // echo $jsons['data']['message'];
     // echo implode(" - ", $jsons);
     // echo $jsons;
@@ -78,8 +79,8 @@ function kirim_pesan($tujuan, $nama, $exp)
     // }
 
 
-    echo "<br>";
-    echo "<br> pesan : {$pesan}";
+    // echo "<br>";
+    // echo "<br> pesan : {$pesan}";
 }
 
 
@@ -95,24 +96,23 @@ while ($row = mysqli_fetch_array($q)) {
 
         echo "{$row['id_bidan']} - {$row['nama']} ({$row['ms_berlaku']} - exp): {$row['no_wa']} : Kadaluarsa (3)<br>";
         kirim_pesan($row['no_wa'], $row['nama'], $row['ms_berlaku']);
+        echo "<br>Pesan : {$pesan}<br><br>";
 
-
+        // echo $jsons->message;
         // array_push($a, $row['id_bidan']);
         $newdata[] =  array(
             'id_bidan' => $row['id_bidan'],
             'nama' => $row['nama'],
             'status' => $status,
+            'id_message' => $jsons->data->message_id,
+            'message' => $jsons->message,
+            'isi_pesan' => $pesan
 
         );
 
         array_push($md_array[$id_bidan], $newdata);
+        // $md_array["data"] = $newdata;
 
-
-        $md_array["data"] = $newdata;
-
-        echo "<br>";
-
-        echo "<br>";
         $exp++;
     } else {
         $status = 1;  // 1 : Berlaku
@@ -127,16 +127,24 @@ echo "<br>Masih Berlaku : {$valid} <br><br>";
 
 // print_r($newdata);
 
-
+echo "save data ...";
+$nodata = 1;
 foreach ($newdata as $value) {
-    echo "<br>Nama : {$value['nama']}<br>";
+    $count = countDB("notif_bidan", "id_izin", $value['id_bidan']);
+    if ($count == 0) {
 
-    $sql = mysqli_query($koneksi, "INSERT INTO jt_tempo (`id_izin`, `status`, `notification`)
-    VALUES ('" . $value['id_bidan'] . "', '" . $value['status'] . "', 'Notif')");
+        echo "<br>{$value['nama']} - ";
 
-    if ($sql) {
-        echo "New record created successfully";
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        $sql = mysqli_query($koneksi, "INSERT INTO notif_bidan (`id_izin`, `status`, `id_message`, `message`,`isi_pesan`)
+        VALUES ('" . $value['id_bidan'] . "', '" . $value['status'] . "', '" . $value['id_message'] . "', '" . $value['message'] . "','" . $value['isi_pesan'] . "')");
+
+        if ($sql) {
+            echo "New record created successfully ({$nodata})";
+            $nodata++;
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     }
 }
+
+echo "<br> process completed ...<br>";

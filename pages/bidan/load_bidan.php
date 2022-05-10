@@ -16,12 +16,29 @@ if (post("nama")) {
     $u = $_SESSION['username'];
 }
 
+//membuat pagination
+$batas = 5;
+$halaman = isset($_GET['halaman']) ? (int)$_GET['halaman'] : 1;
+
+if (isset($_GET['halaman'])) {
+    $hal = "ada halaman";
+} else {
+    $hal = "tdk ada halaman";
+}
+
+$halaman_awal = ($halaman > 1) ? ($halaman * $batas) - $batas : 0;
+$previous = $halaman - 1;
+$next = $halaman + 1;
+
+$data = mysqli_query($koneksi, "select * from izin_bidan");
+$jumlah_data = mysqli_num_rows($data);
+$total_halaman = ceil($jumlah_data / $batas);
+
 // require_once('../../templates/header.php');
 
 $output = "";
 
 $output .= "
-
 
 <table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>
     <thead>
@@ -35,9 +52,10 @@ $output .= "
     </thead>
     <tbody>
     ";
-
 $u = $_SESSION['username'];
-$q = mysqli_query($koneksi, "SELECT * FROM izin_bidan order by id_bidan DESC");
+$q = mysqli_query($koneksi, "SELECT * FROM izin_bidan order by id_bidan DESC limit $halaman_awal, $batas");
+$nomor = $halaman_awal + 1;
+
 // $no = 1;
 while ($row = mysqli_fetch_array($q)) {
 
@@ -61,5 +79,20 @@ while ($row = mysqli_fetch_array($q)) {
 $output .= "
 </tbody>
 </table>";
+
+$output .= "
+<nav>
+			<ul class='pagination justify-content-center'>
+				<li class='page-item'>
+					<a class='page-link' href='?halaman=" . $Previous . "' >Previous</a>
+				</li>
+						
+				<li class='page-item'>
+					<a  class='btn btn-success page-link next_page' id=" . $next . "'>Next</a>
+				</li>
+			</ul>
+		</nav>
+
+";
 
 echo $output;

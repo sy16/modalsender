@@ -39,18 +39,34 @@ $output .= "
     ";
 
 $u = $_SESSION['username'];
-$q = mysqli_query($koneksi, "SELECT * FROM izin_bidan order by id_bidan DESC");
+$q = mysqli_query($koneksi, "SELECT izin_bidan.nama as nama, izin_bidan.no_wa as no_wa, izin_bidan.ms_berlaku as berlaku, notif_bidan.status as status, notif_bidan.message as message FROM notif_bidan JOIN izin_bidan WHERE notif_bidan.id_izin = izin_bidan.id_bidan order by notif_bidan.id_jtempo DESC");
+
 $no = 1;
 while ($row = mysqli_fetch_array($q)) {
+
+    $status = $row['status'];
+    switch ($status) {
+        case 1:
+            $status = "Berlaku";
+            break;
+        case 2:
+            $status = "Peringatan";
+            break;
+        case 3:
+            $status = "Kadaluwarsa";
+            break;
+        default:
+            echo "-";
+    }
 
     $output .= "
     <tr>
     <td> " . $no  . "</td>
     <td> " . $row['nama'] . "</td>
     <td>" .  $row['no_wa']  . "</td>
-    <td>" .  $row['ms_berlaku'] . " </td>
-    <td>Berlaku </td>
-    <td>- </td>
+    <td>" .  $row['berlaku'] . " </td>
+    <td>" .  $status . " </td>
+    <td>" .  $row['message'] . " </td>
     <td>                            
     
     <input type='hidden' name='nama' id='" . $row['nama'] . "'>

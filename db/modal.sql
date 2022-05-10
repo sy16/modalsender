@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 05, 2022 at 12:58 AM
+-- Generation Time: May 10, 2022 at 12:46 PM
 -- Server version: 10.4.16-MariaDB
 -- PHP Version: 7.4.12
 
@@ -156,9 +156,14 @@ CREATE TABLE `izin_bidan` (
 --
 
 INSERT INTO `izin_bidan` (`id_bidan`, `sipb`, `nama`, `temp_lahir`, `tg_lahir`, `alamat`, `no_strb`, `uk_praktik`, `al_praktik`, `no_rekom`, `tg_rekom`, `terbit`, `ms_berlaku`, `no_wa`) VALUES
-(7, 'B-026/DPMPTSP/503-SIP-B/V/2021', 'Marlina, A.Md.Keb', 'Tanjung', '1976-03-07', 'Jl. Batuah Rt.004 No 12 Kel. Mabuun Kec. Murung Pudak Kab. Tabalong', '210252217-1356386', 'RSUD H. Badaruddin Kasim', '', 'B-1029/Dinkes-Yan&SDK/445/04/2021', '2021-04-19', '2021-05-07', '2022-03-07', 62876354485943),
-(28, '203/45/6777', 'Syabani', 'Pembataan', '1988-05-05', 'Griya Tama Asri', '0237543215', 'RSUD Badarudin Kasim', '', '234/233/55/22', '2022-04-28', '2022-05-01', '2024-05-01', 85238449573),
-(34, '1234', 'Amrullah', 'Paramaian', '1983-06-16', 'Stadion', '1234', 'RSU', '', '1234', '2022-05-02', '2022-05-05', '2026-05-05', 85249660267);
+(7, 'B-026/DPMPTSP/503-SIP-B/V/2021', 'Marlina, A.Md.Keb', 'Tanjung', '1976-03-07', 'Jl. Batuah Rt.004 No 12 Kel. Mabuun Kec. Murung Pudak Kab. Tabalong', '210252217-1356386', 'RSUD H. Badaruddin Kasim', 'Mabuun', 'B-1029/Dinkes-Yan&SDK/445/04/2021', '2021-04-19', '2021-05-07', '2022-05-09', 6285249660267),
+(28, '203/45/6777', 'Syabani', 'Pembataan', '1988-05-05', 'Griya Tama Asri', '0237543215', 'RSUD Badarudin Kasim', 'Pembataan', '234/233/55/22', '2022-04-28', '2022-05-01', '2022-05-09', 85238449573),
+(34, '1234', 'Amrullah', 'Paramaian', '1983-06-16', 'Stadion', '1234', 'RSU', 'Paramian', '1234', '2022-05-02', '2022-05-05', '2022-05-08', 6285249660267),
+(35, '1234', 'Bahrul', 'Sulingan', '2022-05-10', 'Sulingan', '2345', 'Bidan', 'Sulingan', '456', '2022-05-05', '2022-05-06', '2022-05-09', 6285249660267),
+(36, '789', 'Farrah', 'M. Pudak', '2022-05-12', 'M. Pudak', '456', 'Bidan', '', '456', '2022-05-05', '2022-05-06', '2026-05-06', 6285393141999),
+(37, '565742', 'Syabani Uba', 'Pembataan Hilir', '2022-05-19', 'Pemabataan Hilir 2', '567892', 'Bidan 2', 'Sulingan 2', '4562', '2022-05-13', '2022-05-14', '2022-05-08', 6285249660267),
+(38, '344', 'Fitri', 'Pembataan', '2022-05-05', 'Pembataan', '4545', 'Bidan', 'Jangkung', '345', '2022-05-05', '2022-06-09', '2022-05-09', 6285249660267),
+(39, '456', 'Kurnia Mega', 'jangkung', '2022-05-05', 'Jangkung', '456', 'Bidan Jangkung', 'Jangkung', '456/678', '2022-05-07', '2022-05-07', '2022-05-07', 6285249660267);
 
 -- --------------------------------------------------------
 
@@ -316,6 +321,31 @@ INSERT INTO `nomor` (`id`, `nama`, `nomor`, `pesan`, `make_by`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `notif_bidan`
+--
+
+CREATE TABLE `notif_bidan` (
+  `id_jtempo` int(11) NOT NULL,
+  `id_izin` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `id_message` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `isi_pesan` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `notif_bidan`
+--
+
+INSERT INTO `notif_bidan` (`id_jtempo`, `id_izin`, `status`, `id_message`, `message`, `isi_pesan`) VALUES
+(6, 38, 3, 45588117, 'Pesan Berhasil Dikirim', 'Hiii Fitri ini pesan test denga api. tanggal berlaku izin anda 2022-05-09'),
+(7, 35, 3, 45588118, 'Pesan Berhasil Dikirim', 'Hiii Bahrul ini pesan test denga api. tanggal berlaku izin anda 2022-05-09'),
+(8, 28, 3, 45588120, 'Pesan Berhasil Dikirim', 'Hiii Syabani ini pesan test denga api. tanggal berlaku izin anda 2022-05-09'),
+(9, 7, 3, 45588122, 'Pesan Berhasil Dikirim', 'Hiii Marlina, A.Md.Keb ini pesan test denga api. tanggal berlaku izin anda 2022-05-09');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `pesan`
 --
 
@@ -394,6 +424,12 @@ ALTER TABLE `nomor`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `notif_bidan`
+--
+ALTER TABLE `notif_bidan`
+  ADD PRIMARY KEY (`id_jtempo`);
+
+--
 -- Indexes for table `pesan`
 --
 ALTER TABLE `pesan`
@@ -443,13 +479,19 @@ ALTER TABLE `device`
 -- AUTO_INCREMENT for table `izin_bidan`
 --
 ALTER TABLE `izin_bidan`
-  MODIFY `id_bidan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id_bidan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `nomor`
 --
 ALTER TABLE `nomor`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+
+--
+-- AUTO_INCREMENT for table `notif_bidan`
+--
+ALTER TABLE `notif_bidan`
+  MODIFY `id_jtempo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `pesan`
