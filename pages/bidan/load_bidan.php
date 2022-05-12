@@ -17,7 +17,9 @@ if (post("nama")) {
 }
 
 //membuat pagination
-$batas = 5;
+$next_disabled;
+$prev_disabled;
+$batas = 10;
 $halaman = isset($_GET['halaman']) ? (int)$_GET['halaman'] : 1;
 
 if (isset($_GET['halaman'])) {
@@ -33,6 +35,12 @@ $next = $halaman + 1;
 $data = mysqli_query($koneksi, "select * from izin_bidan");
 $jumlah_data = mysqli_num_rows($data);
 $total_halaman = ceil($jumlah_data / $batas);
+
+($halaman == $total_halaman) ? $next_disabled = "disabled" : "";
+($halaman == 1) ? $prev_disabled = "disabled" : "";
+
+
+
 
 // require_once('../../templates/header.php');
 
@@ -56,12 +64,12 @@ $u = $_SESSION['username'];
 $q = mysqli_query($koneksi, "SELECT * FROM izin_bidan order by id_bidan DESC limit $halaman_awal, $batas");
 $nomor = $halaman_awal + 1;
 
-// $no = 1;
+$no = $halaman_awal + 1;
 while ($row = mysqli_fetch_array($q)) {
 
     $output .= "
     <tr>
-    <td> " . $row['id_bidan']  . "</td>
+    <td> " . $no  . "</td>
     <td> " . $row['nama'] . "</td>
     <td>" .  $row['no_wa']  . "</td>
     <td>" .  $row['ms_berlaku'] . " </td>
@@ -74,7 +82,7 @@ while ($row = mysqli_fetch_array($q)) {
                             </td>
     </tr>
     ";
-    // $no++;
+    $no++;
 }
 $output .= "
 </tbody>
@@ -83,13 +91,22 @@ $output .= "
 $output .= "
 <nav>
 			<ul class='pagination justify-content-center'>
-				<li class='page-item'>
-					<a class='page-link' href='?halaman=" . $Previous . "' >Previous</a>
-				</li>
-						
-				<li class='page-item'>
-					<a  class='btn btn-success page-link next_page' id=" . $next . "'>Next</a>
-				</li>
+            <li class='page-item'>
+                <a  class='btn " . $prev_disabled . " page-link next_page ' id=" . $previous . "'><< Previous</a>
+				</li>";
+
+for ($x = 1; $x <= $total_halaman; $x++) {
+
+    $output .= "   <a class='btn page-link next_page' id='" . $x . "'>" . $x . "</a>";
+}
+
+$output .= "
+            <li class='page-item'>
+            <a  class='btn " . $next_disabled . " page-link next_page ' id=" . $next . "'>Next >></a>
+        </li>
+            
+            
+
 			</ul>
 		</nav>
 
